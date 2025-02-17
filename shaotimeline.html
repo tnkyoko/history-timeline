@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八年级历史第一单元时间轴</title>
+    <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+</head>
+
+<body>
+    <div id="timeline"></div>
+
+    <script>
+        // 定义 JSON 文件的路径
+        var timeline_json = 'history_timeline.json';
+        // 创建 TimelineJS 实例，将其绑定到 id 为 'timeline' 的容器上，并使用指定的 JSON 数据
+        var timeline = new TL.Timeline('timeline', timeline_json);
+    </script>
+</body>
+
+</html>
