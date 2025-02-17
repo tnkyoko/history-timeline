@@ -1,36 +1,23 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>可编辑时间轴</title>
+    <title>八年级历史第一单元时间轴</title>
     <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
     <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
 </head>
 
 <body>
-    <!-- 时间轴容器 -->
     <div id="timeline"></div>
 
-    <!-- 新增事件表单 -->
-    <form id="add-event-form">
-        <label for="start-year">开始年份:</label>
-        <input type="number" id="start-year" required><br>
-        <label for="start-month">开始月份:</label>
-        <input type="number" id="start-month" required><br>
-        <label for="start-day">开始日期:</label>
-        <input type="number" id="start-day" required><br>
-        <label for="headline">标题:</label>
-        <input type="text" id="headline" required><br>
-        <label for="text">描述:</label>
-        <textarea id="text" required></textarea><br>
-        <label for="media-url">媒体链接 (图片或视频):</label>
-        <input type="text" id="media-url"><br>
-        <input type="submit" value="添加事件">
-    </form>
-
-    <script src="script.js"></script>
+    <script>
+        // 定义 JSON 文件的路径
+        var timeline_json = 'history_timeline.json';
+        // 创建 TimelineJS 实例，将其绑定到 id 为 'timeline' 的容器上，并使用指定的 JSON 数据
+        var timeline = new TL.Timeline('timeline', timeline_json);
+    </script>
 </body>
 
 </html>
