@@ -11,7 +11,41 @@ let timelineData = {
 
 // 创建 TimelineJS 实例
 let timeline = new TL.Timeline('timeline', timelineData);
+ 
+// 假设您的时间轴数据如下所示
+let timelineData = {
+    "events": [
+        {
+            "start_date": {
+                "year": "1900",
+                "month": "1",
+                "day": "1"
+            },
+            "end_date": {
+                "year": "1900",
+                "month": "12",
+                "day": "31"
+            },
+            "text": {
+                "headline": "事件标题",
+                "text": "事件描述"
+            }
+        },
+        // ... 更多事件 ...
+    ]
+};
 
+// 在页面加载完毕后创建 TimelineJS 实例
+document.addEventListener('DOMContentLoaded', function() {
+    // 使用时间轴数据实例化 TimelineJS
+    let timeline = new TL.Timeline('timeline', timelineData, {
+        // 选项，例如：
+        // "hash_bookmark": true,
+        // "default_bg_color": {r:255, g:255, b:255},
+        // ... 其他选项 ...
+    });
+});
+ 
 // 处理表单提交事件
 const form = document.getElementById('add-event-form');
 form.addEventListener('submit', function (e) {
