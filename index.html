@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>八年级历史第一单元时间轴</title>
     <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+    <link rel="stylesheet" href="styles.css">
     <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
     <style>
         form {
@@ -97,6 +98,8 @@
                     };
                 }
 
+                console.log('添加新事件:', newEvent);
+
                 // 将新事件添加到时间轴数据中
                 timelineData.events.push(newEvent);
                 localStorage.setItem('timelineData', JSON.stringify(timelineData));
@@ -106,6 +109,15 @@
 
                 // 清空表单
                 form.reset();
+
+                // 重新添加删除按钮
+                const events = document.querySelectorAll('.tl-timemarker');
+                events.forEach((event, index) => {
+                    const deleteButton = event.querySelector('button.delete');
+                    if (deleteButton) {
+                        deleteButton.dataset.index = index;
+                    }
+                });
             });
 
             // 添加删除事件功能
@@ -113,11 +125,24 @@
             container.addEventListener('click', function (e) {
                 if (e.target.classList.contains('delete')) {
                     const eventIndex = parseInt(e.target.dataset.index);
+                    console.log('要删除的事件索引:', eventIndex);
+
                     // 从数据中删除事件
-                    timelineData.events.splice(eventIndex, 1);
-                    localStorage.setItem('timelineData', JSON.stringify(timelineData));
-                    // 重新渲染时间轴
-                    timeline.update(timelineData);
+                    if (eventIndex >= 0 && eventIndex < timelineData.events.length) {
+                        timelineData.events.splice(eventIndex, 1);
+                        localStorage.setItem('timelineData', JSON.stringify(timelineData));
+                        // 重新渲染时间轴
+                        timeline.update(timelineData);
+
+                        // 重新添加删除按钮
+                        const events = document.querySelectorAll('.tl-timemarker');
+                        events.forEach((event, index) => {
+                            const deleteButton = event.querySelector('button.delete');
+                            if (deleteButton) {
+                                deleteButton.dataset.index = index;
+                            }
+                        });
+                    }
                 }
             });
 
