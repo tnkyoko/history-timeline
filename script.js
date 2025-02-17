@@ -53,4 +53,34 @@ form.addEventListener('submit', function (e) {
 
     // 清空表单
     form.reset();
+
+    // 更新删除按钮
+    addDeleteButtons();
 });
+
+// 添加删除按钮的逻辑
+function addDeleteButtons() {
+    // 移除现有的删除按钮
+    const existingDeleteButtons = document.querySelectorAll('.delete');
+    existingDeleteButtons.forEach(button => button.remove());
+
+    // 为每个事件添加删除按钮
+    timelineData.events.forEach((event, index) => {
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = '删除';
+        deleteButton.classList.add('delete');
+        deleteButton.dataset.index = index;
+        deleteButton.addEventListener('click', function() {
+            // 删除事件
+            timelineData.events.splice(index, 1);
+            // 重新渲染时间轴
+            timeline.update(timelineData);
+            // 更新删除按钮
+            addDeleteButtons();
+        });
+        document.getElementById('timeline').appendChild(deleteButton);
+    });
+}
+
+// 初始化删除按钮
+addDeleteButtons();

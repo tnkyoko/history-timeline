@@ -29,134 +29,53 @@
     <div id="timeline"></div>
 
     <!-- 新增事件表单 -->
-    <form id="add-event-form">
-        <label for="start-year">开始年份:</label>
-        <input type="number" id="start-year" required><br>
-        <label for="start-month">开始月份:</label>
-        <input type="number" id="start-month" required><br>
-        <label for="start-day">开始日期:</label>
-        <input type="number" id="start-day" required><br>
-        <label for="headline">标题:</label>
-        <input type="text" id="headline" required><br>
-        <label for="text">说明:</label>
-        <textarea id="text"></textarea><br>
-        <label for="media-url">媒体链接 (图片或视频):</label>
-        <input type="text" id="media-url"><br>
-        <input type="submit" value="添加事件">
-    </form>
-
-    <script>
-        // 从 localStorage 中获取时间轴数据，如果没有则加载 JSON 文件
-        let timelineData = JSON.parse(localStorage.getItem('timelineData'));
-        if (!timelineData) {
-            fetch('history_timeline.json')
-              .then(response => response.json())
-              .then(data => {
-                    timelineData = data;
-                    localStorage.setItem('timelineData', JSON.stringify(timelineData));
-                    initTimeline();
-                })
-              .catch(error => console.error('Error loading JSON:', error));
-        } else {
-            initTimeline();
+   <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>八年级历史第一单元时间轴</title>
+    <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
+    <style>
+        form {
+            margin-top: 20px;
         }
 
-        function initTimeline() {
-            // 创建 TimelineJS 实例
-            var timeline = new TL.Timeline('timeline', timelineData);
-
-            // 处理表单提交事件
-            const form = document.getElementById('add-event-form');
-            form.addEventListener('submit', function (e) {
-                e.preventDefault();
-
-                // 获取表单数据
-                const startYear = document.getElementById('start-year').value;
-                const startMonth = document.getElementById('start-month').value;
-                const startDay = document.getElementById('start-day').value;
-                const headline = document.getElementById('headline').value;
-                const text = document.getElementById('text').value;
-                const mediaUrl = document.getElementById('media-url').value;
-
-                // 创建新事件对象
-                const newEvent = {
-                    "start_date": {
-                        "year": startYear,
-                        "month": startMonth,
-                        "day": startDay
-                    },
-                    "text": {
-                        "headline": headline,
-                        "text": text
-                    }
-                };
-
-                // 如果有媒体链接，添加到事件对象中
-                if (mediaUrl) {
-                    newEvent.media = {
-                        "url": mediaUrl
-                    };
-                }
-
-                console.log('添加新事件:', newEvent);
-
-                // 将新事件添加到时间轴数据中
-                timelineData.events.push(newEvent);
-                localStorage.setItem('timelineData', JSON.stringify(timelineData));
-
-                // 重新渲染时间轴
-                timeline.update(timelineData);
-
-                // 清空表单
-                form.reset();
-
-                // 重新添加删除按钮
-                const events = document.querySelectorAll('.tl-timemarker');
-                events.forEach((event, index) => {
-                    const deleteButton = event.querySelector('button.delete');
-                    if (deleteButton) {
-                        deleteButton.dataset.index = index;
-                    }
-                });
-            });
-
-            // 添加删除事件功能
-            const container = document.getElementById('timeline');
-            container.addEventListener('click', function (e) {
-                if (e.target.classList.contains('delete')) {
-                    const eventIndex = parseInt(e.target.dataset.index);
-                    console.log('要删除的事件索引:', eventIndex);
-
-                    // 从数据中删除事件
-                    if (eventIndex >= 0 && eventIndex < timelineData.events.length) {
-                        timelineData.events.splice(eventIndex, 1);
-                        localStorage.setItem('timelineData', JSON.stringify(timelineData));
-                        // 重新渲染时间轴
-                        timeline.update(timelineData);
-
-                        // 重新添加删除按钮
-                        const events = document.querySelectorAll('.tl-timemarker');
-                        events.forEach((event, index) => {
-                            const deleteButton = event.querySelector('button.delete');
-                            if (deleteButton) {
-                                deleteButton.dataset.index = index;
-                            }
-                        });
-                    }
-                }
-            });
-
-            // 在每个事件上添加删除按钮
-            const events = document.querySelectorAll('.tl-timemarker');
-            events.forEach((event, index) => {
-                const deleteButton = document.createElement('button');
-                deleteButton.textContent = '删除';
-                deleteButton.classList.add('delete');
-                deleteButton.dataset.index = index;
-                event.appendChild(deleteButton);
-            });
+        input,
+        textarea {
+            display: block;
+            margin-bottom: 10px;
         }
-    </script>
+
+        button.delete {
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="timeline"></div>
+
+    <!-- 新增事件表单 -->
+<form id="add-event-form">
+    <label for="start-year">开始年份:</label>
+    <input type="number" id="start-year" required><br> <!-- 年份仍然是必填的 -->
+    <label for="start-month">开始月份:</label>
+    <input type="number" id="start-month"><br> <!-- 移除了 required -->
+    <label for="start-day">开始日期:</label>
+    <input type="number" id="start-day"><br> <!-- 移除了 required -->
+    <label for="headline">标题:</label>
+    <input type="text" id="headline" required><br> <!-- 标题仍然是必填的 -->
+    <label for="text">说明:</label>
+    <textarea id="text"></textarea><br> <!-- 移除了 required -->
+    <label for="media-url">媒体链接 (图片或视频):</label>
+    <input type="text" id="media-url"><br> <!-- 移除了 required -->
+    <input type="submit" value="添加事件">
+</form>
+
+
+    <!-- 引入外部的 JavaScript 文件 -->
+    <script src="script.js"></script>
 </body>
-
 </html>
