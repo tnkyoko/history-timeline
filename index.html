@@ -8,31 +8,40 @@
     <!-- 链接自定义 CSS 文件 -->
     <link rel="stylesheet" href="styles.css">
     <!-- 链接 TimelineJS 的 CSS 文件 -->
-    <link rel="stylesheet" href="timelin.css">
+    <link rel="stylesheet" href="timeline.css">
     <!-- 引入 jQuery 库 -->
     <script src="jquery-3.7.1.min.js"></script>
-    <!-- 引入 TimelineJS 的 JavaScript 文件 -->
-    <script src="timeline.js"></script>
 </head>
 
 <body>
     <!-- 创建时间轴容器 -->
     <div id="timeline-embed"></div>
+
+    <!-- 动态加载 timeline.js 并初始化时间轴 -->
     <script>
-        const options = {
-            source: 'history-timeline.json',
-            embed_id: 'timeline-embed',
-            start_at_end: false,
-            start_at_slide: '0',
-            start_zoom_adjust: '2',
-            hash_bookmark: true,
-            font: 'Default',
-            lang: 'zh',
-            maptype: 'stamen:toner-lite',
-            css: 'timelin.css',
-            js: 'timeline.js'
+        const script = document.createElement('script');
+        script.src = 'timeline.js';
+        script.onload = function () {
+            console.log('timeline.js loaded successfully');
+            const options = {
+                source: 'history-timeline.json',
+                embed_id: 'timeline-embed',
+                start_at_end: false,
+                start_at_slide: '0',
+                start_zoom_adjust: '2',
+                hash_bookmark: true,
+                font: 'Default',
+                lang: 'zh',
+                maptype: 'stamen:toner-lite',
+                css: 'timelin.css',
+                js: 'timeline.js'
+            };
+            window.timeline = new TL.Timeline('timeline-embed', 'history-timeline.json', options);
         };
-        window.timeline = new TL.Timeline('timeline-embed', 'history-timeline.json', options);
+        script.onerror = function () {
+            console.error('Failed to load timeline.js');
+        };
+        document.head.appendChild(script);
     </script>
 </body>
 
