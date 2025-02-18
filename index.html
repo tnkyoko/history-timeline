@@ -1,80 +1,40 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
 
-<head>
-       <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>八年级历史第一单元时间轴</title>
-    <!-- 引入本地 CSS 文件 -->
-    <link title="timeline-styles" rel="stylesheet" href="css/timeline.css">
-    <style>
-        form {
-            margin-top: 20px;
-        }
-
-        input,
-        textarea {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        button.delete {
-            margin-left: 10px;
-        }
-    </style>
-</head>
-
-<body>
-    <div id="timeline"></div>
-
-    <!-- 新增事件表单 -->
-   <!DOCTYPE html>
-<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>八年级历史第一单元时间轴</title>
-    <link title="timeline-styles" rel="stylesheet" href="https://cdn.knightlab.com/libs/timeline3/latest/css/timeline.css">
+    <title>部编版历史八年级下册时间轴</title>
+    <!-- 链接自定义 CSS 文件 -->
     <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.knightlab.com/libs/timeline3/latest/js/timeline.js"></script>
-    <style>
-        form {
-            margin-top: 20px;
-        }
-
-        input,
-        textarea {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        button.delete {
-            margin-left: 10px;
-        }
-    </style>
+    <!-- 链接 TimelineJS 的 CSS 文件 -->
+    <link rel="stylesheet" href="timelin.css">
 </head>
+
 <body>
-    <div id="timeline"></div>
+    <!-- 创建时间轴容器 -->
+    <div id="timeline-embed"></div>
 
-    <!-- 新增事件表单 -->
-<form id="add-event-form">
-    <label for="start-year">开始年份:</label>
-    <input type="number" id="start-year" required><br> <!-- 年份仍然是必填的 -->
-    <label for="start-month">开始月份:</label>
-    <input type="number" id="start-month"><br> <!-- 移除了 required -->
-    <label for="start-day">开始日期:</label>
-    <input type="number" id="start-day"><br> <!-- 移除了 required -->
-    <label for="headline">标题:</label>
-    <input type="text" id="headline" required><br> <!-- 标题仍然是必填的 -->
-    <label for="text">说明:</label>
-    <textarea id="text"></textarea><br> <!-- 移除了 required -->
-    <label for="media-url">媒体链接 (图片或视频):</label>
-    <input type="text" id="media-url"><br> <!-- 移除了 required -->
-    <input type="submit" value="添加事件">
-</form>
-
-
-    <!-- 引入外部的 JavaScript 文件 -->
-    <script src="script.js"></script>
+    <!-- 引入 jQuery 库，TimelineJS 依赖 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- 引入 TimelineJS 的 JavaScript 文件 -->
+    <script src="timeline.js"></script>
+    <script>
+        const options = {
+            source: 'history-timeline.json',
+            embed_id: 'timeline-embed',
+            start_at_end: false,
+            start_at_slide: '0',
+            start_zoom_adjust: '2',
+            hash_bookmark: true,
+            font: 'Default',
+            lang: 'zh',
+            maptype: 'stamen:toner-lite',
+            css: 'timelin.css',
+            js: 'timeline.js'
+        };
+        window.timeline = new TL.Timeline('timeline-embed', 'history-timeline.json', options);
+    </script>
 </body>
+
 </html>
