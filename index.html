@@ -1,47 +1,36 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>部编版历史八年级下册时间轴</title>
-    <!-- 链接自定义 CSS 文件 -->
-    <link rel="stylesheet" href="styles.css">
-    <!-- 链接 TimelineJS 的 CSS 文件 -->
+    <title>Interactive Timeline</title>
+    <!-- 链接 Timeline.js 的 CSS 文件 -->
     <link rel="stylesheet" href="timeline.css">
-    <!-- 引入 jQuery 库 -->
-    <script src="jquery-3.7.1.min.js"></script>
+    <!-- 链接自定义的样式文件 -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-    <!-- 创建时间轴容器 -->
+    <!-- 用于显示时间轴的容器 -->
     <div id="timeline-embed"></div>
 
-    <!-- 动态加载 timeline.js 并初始化时间轴 -->
+    <!-- 引入 jQuery 库 -->
+    <script src="jquery-3.7.1.min.js"></script>
+    <!-- 引入 Timeline.js 库 -->
+    <script src="timeline.js"></script>
     <script>
-        const script = document.createElement('script');
-        script.src = 'timeline.js';
-        script.onload = function () {
-            console.log('timeline.js loaded successfully');
-            const options = {
+        // 页面加载完成后执行以下代码
+        $(document).ready(function () {
+            // 创建时间轴
+            createStoryJS({
+                type: 'timeline',
+                width: '100%',
+                height: '600px',
                 source: 'history-timeline.json',
-                embed_id: 'timeline-embed',
-                start_at_end: false,
-                start_at_slide: '0',
-                start_zoom_adjust: '2',
-                hash_bookmark: true,
-                font: 'Default',
-                lang: 'zh',
-                maptype: 'stamen:toner-lite',
-                css: 'timelin.css',
-                js: 'timeline.js'
-            };
-            window.timeline = new TL.Timeline('timeline-embed', 'history-timeline.json', options);
-        };
-        script.onerror = function () {
-            console.error('Failed to load timeline.js');
-        };
-        document.head.appendChild(script);
+                embed_id: 'timeline-embed'
+            });
+        });
     </script>
 </body>
 
